@@ -2,30 +2,20 @@ import { useState } from "react";
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
 import people from "./data";
 
-const App = () => {
+const Alternative = () => {
   const [index, setIndex] = useState(0);
   const { name, job, image, text } = people[index];
 
-  const checkNumber = (number) => {
-    if (number > people.length - 1) {
-      return 0;
-    }
-    if (number < 0) {
-      return people.length - 1;
-    }
-    return number;
-  };
-
   const nextPerson = () => {
     setIndex((prevIndex) => {
-      const newIndex = prevIndex + 1;
-      return checkNumber(newIndex);
+      const newIndex = (prevIndex + 1) % people.length;
+      return newIndex;
     });
   };
   const prevPerson = () => {
     setIndex((prevIndex) => {
-      const newIndex = prevIndex - 1;
-      return checkNumber(newIndex);
+      const newIndex = (prevIndex - 1 + people.length) % people.length;
+      return newIndex;
     });
   };
 
@@ -34,7 +24,7 @@ const App = () => {
     if (randomNumber === index) {
       randomNumber = index + 1;
     }
-    setIndex(checkNumber(randomNumber));
+    setIndex(randomNumber % people.length);
   };
 
   return (
@@ -64,4 +54,4 @@ const App = () => {
     </main>
   );
 };
-export default App;
+export default Alternative;
