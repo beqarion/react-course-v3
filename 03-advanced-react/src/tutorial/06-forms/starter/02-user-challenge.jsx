@@ -6,12 +6,13 @@ const UserChallenge = () => {
   const [name, setName] = useState("");
   const [users, setUsers] = useState(data);
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (!name) return;
     const idToBe = Math.max(...users.map((u) => u.id)) + 1;
-    const userToBe = { id: idToBe, name };
+    const newUser = { id: idToBe, name };
 
-    setUsers((prevUsers) => [...prevUsers, userToBe]);
+    setUsers((prevUsers) => [...prevUsers, newUser]);
     setName("");
   };
 
@@ -21,7 +22,7 @@ const UserChallenge = () => {
 
   return (
     <div>
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <h4>Add User</h4>
         <div className="form-row">
           <label htmlFor="name" className="form-label">
